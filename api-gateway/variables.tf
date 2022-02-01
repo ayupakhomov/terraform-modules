@@ -53,3 +53,9 @@ variable "api_gateway_mapped_domain_name" {
   type    = string
   default = ""
 }
+
+
+variable "route53_zone_id" {
+  type    = string
+  default = ""
+}

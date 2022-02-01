@@ -7,3 +7,8 @@ variable "api_gateway_defenition_file" {
   type    = string
   default = ""
 }
+
+variable "route_53_domain_name" {
+  type    = string
+  default = ""
+}
