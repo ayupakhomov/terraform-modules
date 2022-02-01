@@ -61,3 +61,33 @@ resource "aws_route53_record" "this" {
     evaluate_target_health = true
   }
 }
+
+resource "aws_api_gateway_usage_plan" "this" {
+    description = var.api_gateway_usage_plan_description
+    name        = var.api_gateway_usage_plan_name
+    api_stages {
+        api_id = aws_api_gateway_rest_api.this[0].id
+        stage  = var.api_gateway_stage_name
+    }
+
+    quota_settings {
+        limit  = 1000000
+        offset = 0
+        period = "MONTH"
+    }
+
+    throttle_settings {
+        burst_limit = 2000
+        rate_limit  = 500
+    }
+}
+
+resource "aws_api_gateway_api_key" "this" {
+  name = var.api_gateway_api_key_name
+}
+
+resource "aws_api_gateway_usage_plan_key" "this" {
+  key_id        = aws_api_gateway_api_key.this.id
+  key_type      = "API_KEY"
+  usage_plan_id = aws_api_gateway_usage_plan.this.id
+}

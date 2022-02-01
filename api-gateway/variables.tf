@@ -59,3 +59,18 @@ variable "route53_zone_id" {
   type    = string
   default = ""
 }
+
+variable "api_gateway_usage_plan_description" {
+  type    = string
+  default = ""
+}
+
+variable "api_gateway_usage_plan_name" {
+  type    = string
+  default = ""
+}
+
+variable "api_gateway_api_key_name" {
+  type    = string
+  default = ""
+}
