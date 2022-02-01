@@ -32,3 +32,20 @@ resource "aws_api_gateway_deployment" "this" {
     create_before_destroy = true
   }
 }
+
+resource "aws_api_gateway_base_path_mapping" "this" {
+    api_id      = aws_api_gateway_rest_api.this[0].id
+    domain_name = var.api_gateway_mapped_domain_name
+    stage_name  = var.api_gateway_stage_name
+}
+
+resource "aws_api_gateway_domain_name" "this" {
+    domain_name              = var.api_gateway_mapped_domain_name
+    regional_certificate_arn = var.domain_name_certificate_arn
+    security_policy          = "TLS_1_2"
+    endpoint_configuration {
+        types = [
+            var.api_gateway_type,
+        ]
+    }
+}

@@ -43,14 +43,13 @@ variable "stage_variables" {
   default     = {}
 }
 
-variable "domain_name" {
-  description = "The domain name to use for API gateway"
-  type        = string
-  default     = null
-}
-
 variable "domain_name_certificate_arn" {
   description = "The ARN of an AWS-managed certificate that will be used by the endpoint for the domain name"
   type        = string
   default     = null
+}
+
+variable "api_gateway_mapped_domain_name" {
+  type    = string
+  default = ""
 }
