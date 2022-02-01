@@ -17,7 +17,7 @@ resource "aws_api_gateway_stage" "this" {
   cache_cluster_enabled = false
   deployment_id         = aws_api_gateway_deployment.this.id
   rest_api_id           = aws_api_gateway_rest_api.this[0].id
-  stage_name            = var.stage_name
+  stage_name            = var.api_gateway_stage_name
   tags                  = var.default_stage_tags
   variables             = var.stage_variables
   xray_tracing_enabled  = false
