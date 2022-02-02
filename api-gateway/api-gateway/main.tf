@@ -78,5 +78,5 @@ resource "aws_api_gateway_base_path_mapping" "this" {
     api_id      = aws_api_gateway_rest_api.this[0].id
     domain_name = var.api_gateway_mapped_domain_name
     stage_name  = aws_api_gateway_stage.this[0].stage_name
-    base_path = var.zone_id
+    base_path = var.api_mapping_base_path
 }
