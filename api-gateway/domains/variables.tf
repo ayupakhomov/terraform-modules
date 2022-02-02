@@ -23,3 +23,7 @@ variable "route53_zone_id" {
   default = ""
 }
 
+variable "api_route53_record" {
+  type    = string
+  default = ""
+}

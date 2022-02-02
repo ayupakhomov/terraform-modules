@@ -13,7 +13,7 @@ resource "aws_api_gateway_domain_name" "this" {
 resource "aws_route53_record" "this" {
   count = var.create_route53_record ? 1 : 0
   zone_id = var.route53_zone_id
-  name    = var.api_gateway_mapped_domain_name
+  name    = var.api_route53_record
   type    = "A"
   
   alias {
