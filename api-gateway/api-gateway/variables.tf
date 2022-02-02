@@ -105,10 +105,7 @@ variable "api_gateway_mapped_domain_name" {
 }
 
 
-variable "route53_zone_id" {
-  type    = string
-  default = ""
-}
+
 
 variable "api_gateway_usage_plan_description" {
   type    = string
@@ -121,6 +118,11 @@ variable "api_gateway_usage_plan_name" {
 }
 
 variable "api_gateway_api_key_name" {
+  type    = string
+  default = ""
+}
+
+variable "api_mapping_base_path" {
   type    = string
   default = ""
 }
