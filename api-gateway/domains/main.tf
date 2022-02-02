@@ -1,5 +1,5 @@
 resource "aws_api_gateway_domain_name" "this" {
-  count = var.create_api_gateway_domain_name ? 1 : 0
+  
     domain_name              = var.api_gateway_mapped_domain_name
     regional_certificate_arn = var.domain_name_certificate_arn
     security_policy          = "TLS_1_2"
