@@ -38,7 +38,7 @@ resource "aws_api_gateway_base_path_mapping" "this" {
   count = var.create_api_gateway_base_path_mapping ? 1 : 0
     api_id      = aws_api_gateway_rest_api.this[0].id
     domain_name = var.api_gateway_mapped_domain_name
-    stage_name  = var.api_gateway_stage_name
+    stage_name  = aws_api_gateway_stage.this[0].name
 }
 
 resource "aws_api_gateway_domain_name" "this" {
@@ -72,7 +72,7 @@ resource "aws_api_gateway_usage_plan" "this" {
     name        = var.api_gateway_usage_plan_name
     api_stages {
         api_id = aws_api_gateway_rest_api.this[0].id
-        stage  = var.api_gateway_stage_name
+        stage  = aws_api_gateway_stage.this[0].name
     }
 
     quota_settings {
