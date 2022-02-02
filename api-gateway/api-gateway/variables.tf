@@ -4,6 +4,56 @@ variable "create_api_gateway" {
   default     = true
 }
 
+variable "create_api_gateway_stage" {
+  description = "Whether to create API Gateway"
+  type        = bool
+  default     = true
+}
+
+variable "create_api_gateway_deployment" {
+  description = "Whether to create API Gateway"
+  type        = bool
+  default     = true
+}
+
+variable "create_api_gateway_base_path_mapping" {
+  description = "Whether to create API Gateway"
+  type        = bool
+  default     = true
+}
+
+variable "create_api_gateway_domain_name" {
+  description = "Whether to create API Gateway"
+  type        = bool
+  default     = true
+}
+
+variable "create_route53_record" {
+  description = "Whether to create API Gateway"
+  type        = bool
+  default     = true
+}
+
+variable "create_api_gateway_usage_plan" {
+  description = "Whether to create API Gateway"
+  type        = bool
+  default     = true
+}
+
+variable "create_api_gateway_api_key" {
+  description = "Whether to create API Gateway"
+  type        = bool
+  default     = true
+}
+
+
+variable "create_api_gateway_usage_plan_key" {
+  description = "Whether to create API Gateway"
+  type        = bool
+  default     = true
+}
+
+
 variable "api_gateway_name" {
   type    = string
   default = ""
