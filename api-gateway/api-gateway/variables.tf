@@ -123,6 +123,6 @@ variable "api_gateway_api_key_name" {
 }
 
 variable "api_mapping_base_path" {
-  type    = string
-  default = ""
+  type    = list
+  default = null
 }
