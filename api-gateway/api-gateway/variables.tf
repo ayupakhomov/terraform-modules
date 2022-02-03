@@ -55,8 +55,8 @@ variable "create_api_gateway_usage_plan_key" {
 
 
 variable "api_gateway_name" {
-  type    = string
-  default = ""
+  type    = list
+  default = null
 }
 
 variable "api_gateway_type" {
@@ -66,7 +66,7 @@ variable "api_gateway_type" {
 
 variable "body" {
   description = "An OpenAPI specification."
-  type        = string
+  type        = list
   default     = null
 }
 
