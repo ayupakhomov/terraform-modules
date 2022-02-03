@@ -74,13 +74,13 @@ resource "aws_api_gateway_usage_plan" "this" {
 
 resource "aws_api_gateway_api_key" "this" {
   
-count = var.create_api_gateway_api_key ? length(var.api_gateway_name) : 0
+  count = var.create_api_gateway_api_key ? 1 : 0
   name = "${var.api_gateway_api_key_name}_${count.index}"
 }
 
 resource "aws_api_gateway_usage_plan_key" "this" {
-  count = var.create_api_gateway_api_key ? 1 : 0
-  key_id        = aws_api_gateway_api_key.this[count.index].id
+  count = "${var.create_api_gateway_usage_plan && var.create_api_gateway_api_key}" ? length(var.api_gateway_name) : 0
+  key_id        = aws_api_gateway_api_key.this[0].id
   key_type      = "API_KEY"
   usage_plan_id = aws_api_gateway_usage_plan.this[count.index].id
 }
