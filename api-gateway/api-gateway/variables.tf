@@ -4,36 +4,6 @@ variable "create_api_gateway" {
   default     = true
 }
 
-variable "create_api_gateway_stage" {
-  description = "Whether to create API Gateway"
-  type        = bool
-  default     = true
-}
-
-variable "create_api_gateway_deployment" {
-  description = "Whether to create API Gateway"
-  type        = bool
-  default     = true
-}
-
-variable "create_api_gateway_base_path_mapping" {
-  description = "Whether to create API Gateway"
-  type        = bool
-  default     = true
-}
-
-variable "create_api_gateway_domain_name" {
-  description = "Whether to create API Gateway"
-  type        = bool
-  default     = true
-}
-
-variable "create_route53_record" {
-  description = "Whether to create API Gateway"
-  type        = bool
-  default     = true
-}
-
 variable "create_api_gateway_usage_plan" {
   description = "Whether to create API Gateway"
   type        = bool
@@ -47,14 +17,13 @@ variable "create_api_gateway_api_key" {
 }
 
 
-variable "create_api_gateway_usage_plan_key" {
-  description = "Whether to create API Gateway"
-  type        = bool
-  default     = true
-}
-
 
 variable "api_gateway_name" {
+  type    = list
+  default = []
+}
+
+variable "api_gateway_defenition_file_name" {
   type    = list
   default = null
 }
@@ -64,11 +33,6 @@ variable "api_gateway_type" {
   default = "REGIONAL"
 }
 
-variable "body" {
-  description = "An OpenAPI specification."
-  type        = list
-  default     = null
-}
 
 variable "api_gateway_stage_name" {
   type    = string
@@ -93,11 +57,6 @@ variable "stage_variables" {
   default     = {}
 }
 
-variable "domain_name_certificate_arn" {
-  description = "The ARN of an AWS-managed certificate that will be used by the endpoint for the domain name"
-  type        = string
-  default     = null
-}
 
 variable "api_gateway_mapped_domain_name" {
   type    = string
@@ -132,7 +91,37 @@ variable "bucket_name" {
   default = ""
 }
 
-variable "api_gateway_defenition_file_name" {
-  type    = list
+## Usage Plan variables ##
+variable "api_gateway_usage_plan_quota_settings_limit" {
+  type    = number
   default = null
+}
+
+variable "api_gateway_usage_plan_quota_settings_offset" {
+  type    = number
+  default = null
+}
+
+variable "api_gateway_usage_plan_quota_settings_period" {
+  type    = string
+  default = ""
+}
+
+variable "api_gateway_usage_plan_throttle_settings_burst_limit" {
+  type    = number
+  default = null
+}
+
+variable "api_gateway_usage_plan_throttle_settings_rate_limit" {
+  type    = number
+  default = null
+}
+
+## API Keys
+
+variable "api_gateway_api_keys" {
+  type    = map
+  default = {   "key1" = "sjgd934gtu340t"
+   "key2" = "8gdfogakjosgskjsod"
+   "key3" = "dsgdsa8gdskg34dsg"}
 }
