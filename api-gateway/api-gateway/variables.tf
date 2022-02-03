@@ -126,3 +126,13 @@ variable "api_mapping_base_path" {
   type    = list
   default = null
 }
+
+variable "bucket_name" {
+  type    = string
+  default = ""
+}
+
+variable "api_gateway_defenition_file_name" {
+  type    = list
+  default = null
+}

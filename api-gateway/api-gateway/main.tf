@@ -1,7 +1,13 @@
+data "aws_s3_bucket_object" "this" {
+  count = length(var.api_gateway_name)
+  provider = aws.us-east-1
+  bucket = var.bucket_name
+  key    = var.api_gateway_defenition_file_name[count.index]
+}
 
 resource "aws_api_gateway_rest_api" "this" {
   count = var.create_api_gateway ? length(var.api_gateway_name) : 0
-  body  = var.body[count.index]
+  body  = data.aws_s3_bucket_object.this[count.index].body
   name  = var.api_gateway_name[count.index]
   endpoint_configuration {
     types = [var.api_gateway_type]
