@@ -67,7 +67,7 @@ variable "api_gateway_mapped_domain_gateway_type" {
   default = ""
 }
 
-variable " api_gateway_domain_name_certificate_arn" {
+variable "api_gateway_domain_name_certificate_arn" {
   type    = string
   default = ""
 }
