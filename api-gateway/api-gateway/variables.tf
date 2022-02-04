@@ -61,6 +61,10 @@ variable "stage_variables" {
   default     = {}
 }
 
+variable "api_gateway_mapped_domain_name" {
+  type    = string
+  default = ""
+}
 
 variable "api_gateway_mapped_domain_gateway_type" {
   type    = string
