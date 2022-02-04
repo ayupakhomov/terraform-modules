@@ -8,6 +8,11 @@ variable "api_route53_record" {
   default = ""
 }
 
+variable "route53_domain_name" {
+  type    = string
+  default = ""
+}
+
 variable "api_gateway_domain_name_regional_domain_name" {
   type    = string
   default = ""
