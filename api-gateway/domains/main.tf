@@ -8,7 +8,7 @@ data "aws_route53_zone" "this" {
 resource "aws_route53_record" "this" {
   #provider = aws.route53
   count = var.create_route53_record ? 1 : 0
-  zone_id = data.aws_route53_zone.this.zone_id
+  zone_id = data.aws_route53_zone.this[0].zone_id
   name    = var.api_route53_record
   type    = "A"
   
