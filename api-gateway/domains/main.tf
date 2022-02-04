@@ -1,4 +1,5 @@
 data "aws_route53_zone" "this" {
+  count = var.create_route53_record ? 1 : 0
   #provider = aws.route53
   name         = var.route53_domain_name
   private_zone = false
