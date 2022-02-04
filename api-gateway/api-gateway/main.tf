@@ -78,6 +78,8 @@ resource "aws_api_gateway_usage_plan_key" "this" {
   usage_plan_id = aws_api_gateway_usage_plan.this[count.index].id
 }
 
+
+## Custom domain and mappings
 resource "aws_api_gateway_domain_name" "this" {
   count = var.create_api_gateway_domain_name ? 1 : 0
     domain_name              = var.api_gateway_mapped_domain_name
