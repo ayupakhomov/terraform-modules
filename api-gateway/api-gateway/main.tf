@@ -1,6 +1,6 @@
 data "aws_s3_bucket_object" "this" {
   count = length(var.api_gateway_name)
-  provider = aws.us-east-1
+  provider = aws.s3
   bucket = var.bucket_name
   key    = var.api_gateway_defenition_file_name[count.index]
 }
