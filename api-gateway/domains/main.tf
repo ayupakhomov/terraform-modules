@@ -10,7 +10,7 @@ resource "aws_api_gateway_domain_name" "this" {
 }
 
 resource "aws_route53_record" "this" {
-  provider = aws.route53
+  #provider = aws.route53
   count = var.create_route53_record ? 1 : 0
   zone_id = var.route53_zone_id
   name    = var.api_route53_record
