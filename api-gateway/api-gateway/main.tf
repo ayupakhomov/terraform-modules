@@ -85,7 +85,7 @@ resource "aws_api_gateway_domain_name" "this" {
     security_policy          = "TLS_1_2"
     endpoint_configuration {
         types = [
-            "REGIONAL",
+            var.api_gateway_mapped_domain_gateway_type,
         ]
     }
 }
