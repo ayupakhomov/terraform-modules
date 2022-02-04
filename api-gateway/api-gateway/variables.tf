@@ -16,7 +16,11 @@ variable "create_api_gateway_api_key" {
   default     = true
 }
 
-
+variable "create_api_gateway_domain_name" {
+  description = "Whether to create API Gateway"
+  type        = bool
+  default     = true
+}
 
 variable "api_gateway_name" {
   type    = list

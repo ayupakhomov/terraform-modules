@@ -40,13 +40,6 @@ resource "aws_api_gateway_deployment" "this" {
   }
 }
 
-resource "aws_api_gateway_base_path_mapping" "this" {
-  count = var.create_api_gateway ? length(var.api_gateway_name) : 0
-    api_id      = aws_api_gateway_rest_api.this[count.index].id
-    domain_name = var.api_gateway_mapped_domain_name
-    stage_name  = aws_api_gateway_stage.this[count.index].stage_name
-    base_path = var.api_mapping_base_path[count.index]
-}
 
 ## Usage plan and keys
 
@@ -83,4 +76,24 @@ resource "aws_api_gateway_usage_plan_key" "this" {
   key_id        = aws_api_gateway_api_key.this[0].id
   key_type      = "API_KEY"
   usage_plan_id = aws_api_gateway_usage_plan.this[count.index].id
+}
+
+resource "aws_api_gateway_domain_name" "this" {
+  count = var.create_api_gateway_domain_name ? 1 : 0
+    domain_name              = var.api_gateway_mapped_domain_name
+    regional_certificate_arn = var.domain_name_certificate_arn
+    security_policy          = "TLS_1_2"
+    endpoint_configuration {
+        types = [
+            var.mapped_domain_gateway_type,
+        ]
+    }
+}
+
+resource "aws_api_gateway_base_path_mapping" "this" {
+  count = var.create_api_gateway ? length(var.api_gateway_name) : 0
+    api_id      = aws_api_gateway_rest_api.this[count.index].id
+    domain_name = aws_api_gateway_domain_name.this[0].name
+    stage_name  = aws_api_gateway_stage.this[count.index].stage_name
+    base_path = var.api_mapping_base_path[count.index]
 }
