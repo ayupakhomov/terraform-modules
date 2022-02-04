@@ -60,9 +60,9 @@ variable "default_stage_tags" {
 }
 
 variable "stage_variables" {
-  description = "A mapping of variables to assign to the stages"
-  type        = map(string)
-  default     = {}
+  description = "A list of variables to assign to the stages"
+  type        = list
+  default     = []
 }
 
 variable "api_gateway_mapped_domain_name" {
