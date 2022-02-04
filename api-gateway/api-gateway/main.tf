@@ -93,7 +93,7 @@ resource "aws_api_gateway_domain_name" "this" {
 }
 
 resource "aws_api_gateway_base_path_mapping" "this" {
-  count = var.create_api_gateway ? length(var.api_gateway_name) : 0
+  count = var.create_api_gateway_domain_name ? length(var.api_gateway_name) : 0
     api_id      = aws_api_gateway_rest_api.this[count.index].id
     domain_name = aws_api_gateway_domain_name.this[0].domain_name
     stage_name  = aws_api_gateway_stage.this[count.index].stage_name
