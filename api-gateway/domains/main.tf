@@ -12,8 +12,8 @@ resource "aws_route53_record" "this" {
   type    = "A"
   
   alias {
-    name                   = var.api_gateway_domain_name_regional_regional_zone_id
-    zone_id                = var.api_gateway_domain_name_regional_regional_zone_id
+    name                   = var.api_gateway_domain_name_regional_domain_name
+    zone_id                = var.api_gateway_domain_name_regional_zone_id
     evaluate_target_health = true
   }
 }
