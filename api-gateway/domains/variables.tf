@@ -18,7 +18,7 @@ variable "api_gateway_domain_name_regional_domain_name" {
   default = ""
 }
 
-variable "api_gateway_domain_name_regional_regional_zone_id" {
+variable "api_gateway_domain_name_regional_zone_id" {
   type    = string
   default = ""
 }
