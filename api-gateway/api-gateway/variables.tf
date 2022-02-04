@@ -62,10 +62,16 @@ variable "stage_variables" {
 }
 
 
-variable "api_gateway_mapped_domain_name" {
+variable "api_gateway_mapped_domain_gateway_type" {
   type    = string
   default = ""
 }
+
+variable " api_gateway_domain_name_certificate_arn" {
+  type    = string
+  default = ""
+}
+
 
 
 
