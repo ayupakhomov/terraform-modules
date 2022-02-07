@@ -2,13 +2,13 @@ data "aws_s3_bucket_object" "this" {
   count = length(var.api_gateway_params)
   provider = aws.s3
   bucket = var.bucket_name
-  key    = var.api_gateway_params[count.index].api_gateway_defenition_file_name
+  key    = var.api_gateway_params[count.index].api_gateway_defenition_file_name.value
 }
 
 resource "aws_api_gateway_rest_api" "this" {
   count = var.create_api_gateway ? length(var.api_gateway_params) : 0
   body  = data.aws_s3_bucket_object.this[count.index].body
-  name  = var.api_gateway_params[count.index].api_gateway_name
+  name  = var.api_gateway_params[count.index].api_gateway_name.value
   endpoint_configuration {
     types = [var.api_gateway_type]
   }
@@ -26,7 +26,7 @@ count = var.create_api_gateway ? length(var.api_gateway_params) : 0
   stage_name            = var.api_gateway_stage_name
   tags                  = var.default_stage_tags
   #variables             = var.api_gateway_params[count.index].stage_variables
-  variables             = try(tomap(var.api_gateway_params[count.index].stage_variables), "")
+  variables             = var.api_gateway_params[count.index].stage_variables
   xray_tracing_enabled  = false
 }
 
@@ -47,7 +47,7 @@ resource "aws_api_gateway_deployment" "this" {
 resource "aws_api_gateway_usage_plan" "this" {
   count = var.create_api_gateway_usage_plan ? length(var.api_gateway_params) : 0
     description = var.api_gateway_usage_plan_description
-    name        = "${var.api_gateway_usage_plan_name}_${var.api_gateway_params[count.index].api_gateway_name}"
+    name        = "${var.api_gateway_usage_plan_name}_${var.api_gateway_params[count.index].api_gateway_name.value}"
     api_stages {
         api_id = aws_api_gateway_rest_api.this[count.index].id
         stage  = aws_api_gateway_stage.this[count.index].stage_name
@@ -98,5 +98,5 @@ resource "aws_api_gateway_base_path_mapping" "this" {
     api_id      = aws_api_gateway_rest_api.this[count.index].id
     domain_name = aws_api_gateway_domain_name.this[0].domain_name
     stage_name  = aws_api_gateway_stage.this[count.index].stage_name
-    base_path = var.api_gateway_params[count.index].api_mapping_base_path
+    base_path = var.api_gateway_params[count.index].api_mapping_base_path.value
 }
