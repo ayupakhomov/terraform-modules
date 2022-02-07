@@ -24,7 +24,7 @@ variable "create_api_gateway_domain_name" {
 
 variable "api_gateway_params" {
   description = "All the parameters of API Gateway"
-  type    = list[map(string)]
+  type    = list(map(string))
   default = []
 }
 
