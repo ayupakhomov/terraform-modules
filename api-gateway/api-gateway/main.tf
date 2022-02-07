@@ -25,7 +25,8 @@ count = var.create_api_gateway ? length(var.api_gateway_params) : 0
   rest_api_id           = aws_api_gateway_rest_api.this[count.index].id
   stage_name            = var.api_gateway_stage_name
   tags                  = var.default_stage_tags
-  variables             = var.api_gateway_params[count.index].stage_variables
+  #variables             = var.api_gateway_params[count.index].stage_variables
+  variables             = try(tomap(var.api_gateway_params[count.index].stage_variables), "")
   xray_tracing_enabled  = false
 }
 
