@@ -1,14 +1,14 @@
 data "aws_s3_bucket_object" "this" {
-  count = length(var.api_gateway_name)
+  count = length(var.api_gateway_params)
   provider = aws.s3
   bucket = var.bucket_name
-  key    = var.api_gateway_defenition_file_name[count.index]
+  key    = var.api_gateway_params[count.index].api_gateway_defenition_file_name
 }
 
 resource "aws_api_gateway_rest_api" "this" {
-  count = var.create_api_gateway ? length(var.api_gateway_name) : 0
+  count = var.create_api_gateway ? length(var.api_gateway_params) : 0
   body  = data.aws_s3_bucket_object.this[count.index].body
-  name  = var.api_gateway_name[count.index]
+  name  = var.api_gateway_params[count.index].api_gateway_name
   endpoint_configuration {
     types = [var.api_gateway_type]
   }
@@ -19,18 +19,18 @@ resource "aws_api_gateway_rest_api" "this" {
 }
 
 resource "aws_api_gateway_stage" "this" {
-count = var.create_api_gateway ? length(var.api_gateway_name) : 0
+count = var.create_api_gateway ? length(var.api_gateway_params) : 0
   cache_cluster_enabled = false
   deployment_id         = aws_api_gateway_deployment.this[count.index].id
   rest_api_id           = aws_api_gateway_rest_api.this[count.index].id
   stage_name            = var.api_gateway_stage_name
   tags                  = var.default_stage_tags
-  variables             = var.stage_variables[count.index]
+  variables             = var.api_gateway_params[count.index].api_gateway_name.stage_variables
   xray_tracing_enabled  = false
 }
 
 resource "aws_api_gateway_deployment" "this" {
-  count = var.create_api_gateway ? length(var.api_gateway_name) : 0
+  count = var.create_api_gateway ? length(var.api_gateway_params) : 0
   rest_api_id = aws_api_gateway_rest_api.this[count.index].id
   triggers = {
     redeployment = sha1(jsonencode(aws_api_gateway_rest_api.this[count.index].body))
@@ -44,9 +44,9 @@ resource "aws_api_gateway_deployment" "this" {
 ## Usage plan and keys
 
 resource "aws_api_gateway_usage_plan" "this" {
-  count = var.create_api_gateway_usage_plan ? length(var.api_gateway_name) : 0
+  count = var.create_api_gateway_usage_plan ? length(var.api_gateway_params) : 0
     description = var.api_gateway_usage_plan_description
-    name        = "${var.api_gateway_usage_plan_name}_${var.api_gateway_name[count.index]}"
+    name        = "${var.api_gateway_usage_plan_name}_${var.api_gateway_params[count.index].api_gateway_name}"
     api_stages {
         api_id = aws_api_gateway_rest_api.this[count.index].id
         stage  = aws_api_gateway_stage.this[count.index].stage_name
@@ -72,7 +72,7 @@ resource "aws_api_gateway_api_key" "this" {
 }
 
 resource "aws_api_gateway_usage_plan_key" "this" {
-  count = "${var.create_api_gateway_usage_plan && var.create_api_gateway_api_key}" ? length(var.api_gateway_name) : 0
+  count = "${var.create_api_gateway_usage_plan && var.create_api_gateway_api_key}" ? length(var.api_gateway_params) : 0
   key_id        = aws_api_gateway_api_key.this[0].id
   key_type      = "API_KEY"
   usage_plan_id = aws_api_gateway_usage_plan.this[count.index].id
@@ -93,9 +93,9 @@ resource "aws_api_gateway_domain_name" "this" {
 }
 
 resource "aws_api_gateway_base_path_mapping" "this" {
-  count = var.create_api_gateway_domain_name ? length(var.api_gateway_name) : 0
+  count = var.create_api_gateway_domain_name ? length(var.api_gateway_params) : 0
     api_id      = aws_api_gateway_rest_api.this[count.index].id
     domain_name = aws_api_gateway_domain_name.this[0].domain_name
     stage_name  = aws_api_gateway_stage.this[count.index].stage_name
-    base_path = var.api_mapping_base_path[count.index]
+    base_path = var.api_gateway_params[count.index].api_mapping_base_path
 }

@@ -22,17 +22,23 @@ variable "create_api_gateway_domain_name" {
   default     = true
 }
 
-variable "api_gateway_name" {
-  description = "Name of API Gateway"
-  type    = list
+variable "api_gateway_params" {
+  description = "All the parameters of API Gateway"
+  type    = list(map())
   default = []
 }
 
-variable "api_gateway_defenition_file_name" {
-  description = "Name of the object in S3 Bucket"
-  type    = list
-  default = null
-}
+# variable "api_gateway_name" {
+#   description = "Name of API Gateway"
+#   type    = list
+#   default = []
+# }
+
+# variable "api_gateway_defenition_file_name" {
+#   description = "Name of the object in S3 Bucket"
+#   type    = list
+#   default = null
+# }
 
 variable "api_gateway_type" {
   description = "Type of API Gateway"
@@ -59,11 +65,11 @@ variable "default_stage_tags" {
   default     = {}
 }
 
-variable "stage_variables" {
-  description = "A list of variables to assign to the stages"
-  type        = list(map(string))
-  default     = null
-}
+# variable "stage_variables" {
+#   description = "A list of variables to assign to the stages"
+#   type        = list(map(string))
+#   default     = null
+# }
 
 variable "api_gateway_mapped_domain_name" {
   description = "FQDN of API Gateway Custom Domain"
@@ -101,11 +107,11 @@ variable "api_gateway_api_key_name" {
   default = ""
 }
 
-variable "api_mapping_base_path" {
-  description = "Base path for Custom Domain mapping"
-  type    = list
-  default = null
-}
+# variable "api_mapping_base_path" {
+#   description = "Base path for Custom Domain mapping"
+#   type    = list
+#   default = null
+# }
 
 variable "bucket_name" {
   description = "Name of bucket where OAPI definitions are stored"
